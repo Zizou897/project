@@ -1,0 +1,30 @@
+{% extends 'app/layout/base.html' %}
+{% load static %}
+{% block content %}
+  <!-- department section -->
+  
+  <section class="layout_padding p-5">
+    <div class="container ">
+        <div class="heading_center text-center row  p-3">
+            <h2 class="text-center">Nos sous service les plus demander</h2> 
+        </div>
+    </div>
+    <div class="container">
+        <div class="row gy-3 my-1">
+            {% for service in get_something_service %}
+                <div class="col-md-3">
+                    <div class="b-card ">
+                        <img src="{{service.picture.url}}" class="b-card-img" alt="" srcset="">
+                        <div class="b-card-content">
+                            <p>{{service.name}}<br>prix : 3000F</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+  <!-- end department section -->
+
+{% endblock content %}

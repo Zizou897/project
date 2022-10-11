@@ -1,5 +1,6 @@
+from tabnanny import verbose
 from django.db import models
-from django.utils.text import slugify
+from autoslug import AutoSlugField
 
 # Create your models here.
 class Convention(models.Model):
@@ -77,9 +78,10 @@ class About(Convention):
 class Service(Convention):
     name = models.CharField(max_length=50)
     picture = models.FileField(upload_to="img_service")
+    picture1 = models.FileField(upload_to="img_service")
     description = models.TextField()
     order = models.IntegerField()
-    service_slug = models.SlugField()
+    service_slug =  AutoSlugField(populate_from='name')
     
     
     class Meta:
@@ -87,15 +89,8 @@ class Service(Convention):
         verbose_name_plural = "Services"
 
     def __str__(self):
-        return self.name
+        return self.service_slug
     
-    def save(self, *args, **kwargs):
-        if not self.service_slug:
-            self.service_slug = slugify('{}'.format(self.name))
-        super().save(*args, **kwargs)
-
-
-
 
 class SousService(Convention):
     name = models.CharField(max_length=50)
@@ -104,17 +99,25 @@ class SousService(Convention):
     description = models.TextField()
     order = models.IntegerField()
     price = models.CharField(max_length=10)
-    sous_service_slug = models.SlugField()
+    sous_service_slug =  AutoSlugField(populate_from='name')
     service = models.ForeignKey("Service", related_name="category_service", on_delete=models.CASCADE)
     
     class Meta:
-        verbose_name = "Service"
-        verbose_name_plural = "Services"
+        verbose_name = "Sous Service"
+        verbose_name_plural = "Sous Services"
 
     def __str__(self):
-        return 
+        return self.name
 
-    def save(self, *args, **kwargs):
-        if not self.service_slug:
-            self.service_slug = slugify('{}'.format(self.name))
-        super().save(*args, **kwargs)
+
+class Social(Convention):
+    name = models.CharField(max_length=50)
+    icon = models.CharField(max_length=50)
+    link = models.URLField(max_length=200)
+    
+    class Meta:
+        verbose_name = "reseaux social"
+        verbose_name_plural = "reseaux sociaux"
+    
+    def __str__(self):
+        return self.name

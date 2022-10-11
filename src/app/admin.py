@@ -76,3 +76,21 @@ class ServiceAdmin(admin.ModelAdmin):
     def image_view(self, obj):
         return mark_safe(f'<img src="{obj.picture.url}" style="height:100px; width:150px">')
     image_view.short_description = "Aperçu des images"
+
+
+@admin.register(SousService)
+class SousServiceAdmin(admin.ModelAdmin):
+    list_display = ("image_view", "name", "order", "price", "date_add", "status")
+    date_hierarchy = "date_add"
+    list_per_page = 10
+    list_editable = ["status"]
+    
+    def image_view(self, obj):
+        return mark_safe(f'<img src="{obj.picture.url}" style="height:100px; width:150px">')
+    image_view.short_description = "Aperçu des images"
+
+
+@admin.register(Social)
+class SocialAdmin(admin.ModelAdmin):
+    list_display = ("name", "link", 'status')
+    list_editable = ["status"]

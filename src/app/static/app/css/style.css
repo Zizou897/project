@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap");
+
 body {
   font-family: 'Nunito', sans-serif;
   color: #000000;
@@ -705,6 +706,7 @@ a:focus {
   width: 25px;
   margin-bottom: 5px;
 }
+
 
 .client_section .box .detail-box .name h6 {
   color: #62d2a2;

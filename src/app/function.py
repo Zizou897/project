@@ -1,3 +1,6 @@
+import os
+from django.shortcuts import get_object_or_404
+
 from app.models import *
 
 
@@ -25,6 +28,11 @@ def get_something_services(data=dict()):
 def get_ask_service(data=dict()):
     return AskService.objects.filter(**data).order_by('order')
 
+
+def get_under_service(data=dict()):
+    return SousService.objects.filter(**data).order_by('order')[:10]
+
+
 #------------------------------------------------------------------------------------
 
 
@@ -38,5 +46,12 @@ def get_services(data=dict()):
 
 # Pour la page des sous-services (service) ------------------------------------------------
 
-def get_under_service(data=dict()):
+def get_related_service(id):
+    return get_object_or_404(Service, id=id)
+
+
+def get_all_related_service(data=dict()):
     return SousService.objects.filter(**data).order_by('order')
+
+
+
